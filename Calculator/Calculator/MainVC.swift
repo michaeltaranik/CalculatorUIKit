@@ -166,7 +166,7 @@ class MainVC: UIViewController {
         guard let operation = currentOperation,
               let previousValue = Double(previousInput),
               let currentValue = Double(currentInput) else { return }
-        
+
         var result: Double = 0
         switch operation {
         case "+":
@@ -180,7 +180,15 @@ class MainVC: UIViewController {
         default:
             return
         }
-        currentInput = "\(result)"
+        var isIntResult: Bool = false
+        if floor(result) == result {
+            isIntResult = true
+        }
+        if isIntResult {
+            currentInput = "\(Int(result))"
+        } else {
+            currentInput = "\(result)"
+        }
         resultText.text = currentInput
         previousInput = ""
         currentOperation = nil

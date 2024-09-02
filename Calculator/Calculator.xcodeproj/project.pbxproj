@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E44DDDC72C85D3BF004FC53D /* CalculatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44DDDC62C85D3BF004FC53D /* CalculatorModel.swift */; };
 		E4BC9FC72C846E3A00545064 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BC9FBE2C846E3A00545064 /* AppDelegate.swift */; };
 		E4BC9FC82C846E3A00545064 /* CalculatorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BC9FC02C846E3A00545064 /* CalculatorButton.swift */; };
 		E4BC9FC92C846E3A00545064 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BC9FC42C846E3A00545064 /* MainVC.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E44DDDC62C85D3BF004FC53D /* CalculatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorModel.swift; sourceTree = "<group>"; };
 		E4BC9FA32C82EBBF00545064 /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BC9FBE2C846E3A00545064 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4BC9FBF2C846E3A00545064 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				E4BC9FCF2C846E4600545064 /* Resources */,
 				E4BC9FC02C846E3A00545064 /* CalculatorButton.swift */,
 				E4BC9FC42C846E3A00545064 /* MainVC.swift */,
+				E44DDDC62C85D3BF004FC53D /* CalculatorModel.swift */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4BC9FC72C846E3A00545064 /* AppDelegate.swift in Sources */,
+				E44DDDC72C85D3BF004FC53D /* CalculatorModel.swift in Sources */,
 				E4BC9FC82C846E3A00545064 /* CalculatorButton.swift in Sources */,
 				E4BC9FC92C846E3A00545064 /* MainVC.swift in Sources */,
 				E4BC9FCA2C846E3A00545064 /* SceneDelegate.swift in Sources */,

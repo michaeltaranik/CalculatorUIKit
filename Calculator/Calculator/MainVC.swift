@@ -45,12 +45,11 @@ class MainVC: UIViewController {
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         return mainStack
     }()
-    
-    private lazy var resultText: UITextView = {
+    private lazy var calculatorDisplayText: UITextView = {
         let text = UITextView()
         text.translatesAutoresizingMaskIntoConstraints = false
         text.backgroundColor = .black
-        text.text = "0"
+        text.text = vm.resultText
         text.font = .systemFont(ofSize: 40)
         text.textAlignment = .right
         text.textColor = .white
@@ -58,12 +57,8 @@ class MainVC: UIViewController {
         text.isScrollEnabled = false
         return text
     }()
-    
-    private var buttonActions: [UIButton: CalculatorButton] = [:]
-    private var currentInput: String = ""
-    private var previousInput: String = ""
-    private var currentOperation: String? = nil
-    private var shouldClearDisplay: Bool = false
+    private var vm = CalculatorModel()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,18 +68,18 @@ class MainVC: UIViewController {
     }
     
     private func setUpViews() {
-        view.addSubview(resultText)
+        view.addSubview(calculatorDisplayText)
         view.addSubview(buttonsStack)
     }
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            resultText.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            resultText.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            resultText.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            resultText.heightAnchor.constraint(equalToConstant: 200),
+            calculatorDisplayText.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            calculatorDisplayText.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            calculatorDisplayText.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            calculatorDisplayText.heightAnchor.constraint(equalToConstant: 200),
             
-            buttonsStack.topAnchor.constraint(equalTo: resultText.bottomAnchor),
+            buttonsStack.topAnchor.constraint(equalTo: calculatorDisplayText.bottomAnchor),
             buttonsStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             buttonsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             buttonsStack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -106,99 +101,14 @@ class MainVC: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 30)
         button.tintColor = .white
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        
-        buttonActions[button] = calculatorButton
+        vm.buttonActions[button] = calculatorButton
         return button
     }
     
     @objc private func buttonTapped(_ sender: UIButton) {
-        guard let button = buttonActions[sender] else { return }
-        handleButtonTap(button)
+        guard let button = vm.buttonActions[sender] else { return }
+        vm.handleButtonTap(button)
+        calculatorDisplayText.text = vm.resultText
     }
     
-    private func handleButtonTap(_ button: CalculatorButton) {
-        switch button {
-        case .number(let value):
-            appendNumber(value)
-        case .operation(let symbol):
-            setOperation(symbol)
-        case .function(let function):
-            break
-        case .decimal:
-            if !resultText.text!.contains(".") {
-                resultText.text! += "."
-            }
-        case .equal:
-            calculate()
-        case .clear:
-            clear()
-        }
-    }
-    
-    private func appendNumber(_ number: String) {
-        if shouldClearDisplay {
-            currentInput = ""
-            shouldClearDisplay = false
-        }
-        currentInput += number
-        resultText.text = currentInput
-    }
-
-    private func appendDecimal() {
-        if shouldClearDisplay {
-            currentInput = "0."
-            shouldClearDisplay = false
-        } else if !currentInput.contains(".") {
-            currentInput += "."
-        }
-        resultText.text = currentInput
-    }
-    
-    private func setOperation(_ operation: String) {
-        if !currentInput.isEmpty {
-            previousInput = currentInput
-            currentInput = ""
-            currentOperation = operation
-        }
-    }
-    
-    private func calculate() {
-        guard let operation = currentOperation,
-              let previousValue = Double(previousInput),
-              let currentValue = Double(currentInput) else { return }
-
-        var result: Double = 0
-        switch operation {
-        case "+":
-            result = previousValue + currentValue
-        case "-":
-            result = previousValue - currentValue
-        case "*":
-            result = previousValue * currentValue
-        case "/":
-            result = previousValue / currentValue
-        default:
-            return
-        }
-        var isIntResult: Bool = false
-        if floor(result) == result {
-            isIntResult = true
-        }
-        if isIntResult {
-            currentInput = "\(Int(result))"
-        } else {
-            currentInput = "\(result)"
-        }
-        resultText.text = currentInput
-        previousInput = ""
-        currentOperation = nil
-        shouldClearDisplay = true
-    }
-    
-    private func clear() {
-        currentInput = ""
-        previousInput = ""
-        currentOperation = nil
-        resultText.text = "0"
-    }
 }

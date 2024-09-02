@@ -85,9 +85,9 @@ struct CalculatorModel {
             result = prev + curr
         case "-":
             result = prev - curr
-        case "*":
+        case "×":
             result = prev * curr
-        case "/":
+        case "÷":
             guard curr != 0 else {
                 resultText = "Division by zero"
                 return

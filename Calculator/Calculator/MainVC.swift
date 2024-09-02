@@ -11,10 +11,10 @@ class MainVC: UIViewController {
     
     private lazy var buttonsStack: UIStackView = {
         let firstStack = createStack(with: [
-            .clear, .function("+/-"), .function("%"), .operation("/")
+            .clear, .function("+/-"), .function("%"), .operation("÷")
         ])
         let secondStack = createStack(with: [
-            .number("7"), .number("8"), .number("9"), .operation("*")
+            .number("7"), .number("8"), .number("9"), .operation("×")
         ])
         let thirdStack = createStack(with: [
             .number("4"), .number("5"), .number("6"), .operation("-")
